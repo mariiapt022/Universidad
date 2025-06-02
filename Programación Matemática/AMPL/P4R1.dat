@@ -1,0 +1,24 @@
+data;
+
+param Ndis =4;  
+param Ncol = 3;  
+ 
+# oferta colegios  
+param colegios:= 
+C1 400 
+C2 300 
+C3 300;  
+ 
+# demanda distritos  
+param distritos:=  
+D1 150 
+D2 250  
+D3 200  
+D4 400; 
+ 
+# tiempo media de llegada  
+param tiempo: C1 C2 C3:= 
+D1 15 . 30 
+D2 35 10 5 
+D3 17 23 . 
+D4 . 18 7;

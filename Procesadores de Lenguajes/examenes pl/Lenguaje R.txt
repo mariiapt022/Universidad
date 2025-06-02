@@ -1,0 +1,80 @@
+```
+PROBLEMA: LENGUAJE R
+
+-- A. Sintáctico --
+programa: variables asignaciones EOF
+variables: VARIABLES (tipo variable PyC)+
+tipo: (HList|IList|BList|Integer|Boolean)
+variable: IDENT COMA variable
+        | IDENT
+
+asignaciones: ASIGNACIONES (IDENT ASIGNAR expresion PyC)+
+expresion: (lista | contenido) 
+boolean: true | false
+
+lista: CA contenido CC
+			| IDENT
+			| APPEND PA lista COMA lista PC 
+contenido: (contenido_entero|contenido_booleano)
+contenido_entero: ( NUM
+                  | IDENT
+                  | ADD PA contenido_entero COMA contenido_entero PC
+                  | MINUS PA contenido_entero COMA contenido_entero PC
+                  | TIMES PA contenido_entero COMA contenido_entero PC COMA IDENT) (COMA contenido)?
+                  
+contenido_booleano: ( boolean
+									| IDENT
+									| OR PA contenido_booleano COMA contenido_booleano PC
+									| AND PA contenido_booleano COMA contenido_booleano PC
+                  | NOT contenido_booleano) (COMA contenido)?
+
+Boolean a, c, n
+Integer b   DECISION B) GUARDAR TIPOS DE VARIABLES
+BList b
+IList i
+HList h
+
+Integer: b
+Boolean: a, c , n
+BList: b
+IList: i
+HList: h
+
+b = or (true, false)
+INTEGER:b** IGUAL BOOLEAN: or(false, true) -> INTEGER != BOOLEAN -> ERROR  DECISION A) Dar error si tipos diferentes
+
+PARA cada entrada en memoria buscar si está IDENT y DEVOLVER la entrada en la que esté **
+
+h = append ([], i)
+h != i => NO DA ERROR
+
+b = append([], i)
+b != i => SI DA ERROR
+
+i = append([], h)
+i != h => SI DA ERROR
+
+
+
+-- A. Léxico --
+VARIABLES: "VARIABLES";
+IDENT: [a..z]|[A..Z]
+NUM: [0..9]
+COMA: ","
+ASIGNACIONES: "ASIGNACIONES"
+ASIGNAR: "="
+CA: "["
+CC: "]"
+PA: "("
+PC: ")"
+
+
+-- A. Semántico --
+1.
+2.
+3.
+
+
+
+
+```

@@ -1,0 +1,7 @@
+reset;
+model miP4R2.mod;
+data miP4R2.dat;
+option solver cplex;
+solve;
+
+display x;

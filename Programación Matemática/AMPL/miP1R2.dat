@@ -1,0 +1,9 @@
+data;
+param n:=4;
+param n2:=16;
+set I := 1..n;
+set J := 1..n;
+set K := 1..n2;
+
+
+

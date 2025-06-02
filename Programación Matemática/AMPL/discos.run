@@ -1,0 +1,6 @@
+reset;
+model discos.mod;
+option solver knitro;
+option knitro_options 'ms_maxsolves 1000';
+solve;
+display radio,x,y;

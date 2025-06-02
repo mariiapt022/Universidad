@@ -1,0 +1,7 @@
+reset;
+model examen.mod;
+data examen2.dat;
+option solver cplex;
+solve;  
+display x;  
+display z;  

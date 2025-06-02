@@ -1,0 +1,31 @@
+formula: predicado
+       | formula Y formula
+       | formula O formula
+       | formula IMPLICA formula
+       | NO formula
+       | cuantificador variables DOSPUNTOS PARENTESISABIERTO formula PARENTESISCERRADO
+       | PARENTESISABIERTO formula PARENTESISCERRADO
+       ;
+
+predicado: predicadoPrefijo | predicadoInfijo ;
+
+predicadoPrefijo: IDENT PARENTESISABIERTO terms PARENTESISCERRADO ;
+
+predicadoInfijo: term relacionBinariaInfija term ;
+
+relacionBinariaInfija: IGUAL|DISTINTO|MAYOR|MENOR|MAYORIGUAL|MENORIGUAL ;
+
+cuantificador: PARATODO | EXISTE ;
+
+variables:  IDENT COMA variables | IDENT ;
+
+terms: | term | term COMA terms ;
+
+term: NUMERO
+    | IDENT
+    | IDENT PARENTESISABIERTO terms PARENTESISCERRADO
+    | term funcionBinariaInfija term
+    | PARENTESISABIERTO term PARENTESISCERRADO
+    ;
+
+funcionBinariaInfija: MAS | MENOS | POR | DIVISION ;

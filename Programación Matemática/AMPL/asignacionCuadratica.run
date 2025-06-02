@@ -1,0 +1,6 @@
+reset;
+model asignacionCuadratica.mod;
+data asignacionCuadratica.dat;
+option solver cplex;
+solve;
+display x;

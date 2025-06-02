@@ -1,0 +1,9 @@
+reset;
+model miP5R1.mod;
+data miP5R1.dat;
+option solver gurobi;
+solve;
+
+display x;
+display y;
+display z;

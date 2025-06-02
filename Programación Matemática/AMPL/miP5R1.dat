@@ -1,0 +1,24 @@
+data;
+param unidadesAmpl=200;
+param costeAmpl=90;
+param NPob= 4;
+param NAlm= 2;
+
+param: poblaciones: demanda:=
+P1 100
+P2 150
+P3 75
+P4 125;
+
+param: almacenes: capacidad:=
+A1 300
+A2 400;
+
+param: coste:=
+A1 50
+A2 75;
+
+param costeP: P1 P2 P3 P4:=
+A1 6 3 2 9
+A2 15 23 12 19;
+

@@ -1,0 +1,19 @@
+reset;
+model P5R6.mod;
+data P5R6.dat;
+option solver cplex;
+option cplex_options 'sensitivity';
+solve;
+printf "\n 	El problema resuelto es \n";
+printf "\n 	Solución primal \n";
+display x;
+printf "\n Valor objetivo óptimo \n";
+display z;
+printf "\n 	Solución dual: \n";
+for {i in I}
+printf "\n 	La componente %d-ésima es %f\n",
+		i,constr[i].dual;
+printf "\n  Análisis postóptimo en costes\n";
+display x.down, x.current, x.up;
+printf "\n  Análisis postóptimo en recursos\n";
+display constr.down, constr.current, constr.up;

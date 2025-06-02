@@ -1,0 +1,20 @@
+data;
+
+param: ubicaciones:  costes:=
+    U1  10  
+    U2  14    
+    U3  13  ;
+
+param: capacidad:=
+    U1  25  
+    U2  32    
+    U3  30  ;
+
+param: clientes: demanda:=
+C1 15 C2 16 C3 10 C4 14;
+
+param beneficios:  C1 C2 C3 C4:=
+              U1    4  2  3  2     
+              U2    3  3  5  1 
+              U3    1  5  2  4 ;
+       

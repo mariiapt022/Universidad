@@ -1,0 +1,13 @@
+formula: predicado
+       | formula Y formula
+       | formula O formula
+       | formula IMPLICACION formula
+       | cuantificador variables DOSPUNTOS PARENTESISABIERTO formula PARENTESISCERRADO
+       | PARENTESISABIERTO formula PARENTESISCERRADO
+       | NO formula
+
+predicado: IDENT PARENTESISABIERTO terminos PARENTESISCERRADO ;
+
+termino: NUMERO | funcion | ...
+
+

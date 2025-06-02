@@ -1,0 +1,3 @@
+PARATODO x,y:(p(f(x)+2-3*5) O r(x,y) => EXISTE z:(z+2 == 15))
+PARATODO x,y:(p(x) Y NO r(x,y) => z == x)
+(resultado == i Y i<=numeroElementos(v))

@@ -1,0 +1,7 @@
+reset;
+model P4R1.mod;
+data P4R1.dat
+option solver gurobi;
+solve;
+
+display x;

@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	{
+	"label": "CompilarComponentes",
+	"command": "C:\\mingw64\\bin\\gcc.exe",
+	"args": [
+	"-g",
+	"${file}",
+	"${fileDirname}\\Componentes.c",
+	"-o",
+	"${fileDirname}\\${fileBasenameNoExtension}.exe"
+	],
+	"group": "build"
+	}
+	]
+	}
+	

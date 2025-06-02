@@ -1,0 +1,64 @@
+data;
+
+# esto define los nodos y el flujo en los nodos
+param: NODOS:  flujo :=
+D1C1 50
+D1C3 100
+D2C1 25
+D2C2 150
+D2C3 75
+D3C1 150
+D3C2 50
+D4C2 100
+D4C3 300
+C1 -400
+C2 -300
+C3 -300; 
+# el siguiente bloque define los arcos y los costes c_{ij}
+param: ARCOS:  coste :=
+D1C1 C1 -1 
+D1C1 C3  0
+D1C3 C1  0
+D1C3 C3 -1
+D2C1 C1 -1
+D2C1 C2  0
+D2C1 C3  0
+D2C2 C1  0
+D2C2 C2 -1
+D2C2 C3  0
+D2C3 C1  0
+D2C3 C2  0
+D2C3 C3 -1
+D3C1 C1 -1
+D3C1 C2  0
+D3C2 C1  0
+D3C2 C2 -1
+D4C2 C2 -1
+D4C2 C3  0
+D4C3 C2  0
+D4C3 C3 -1;
+# esta parte define las cotas de flujo en cada arco
+param cota :=
+D1C1 C1 1000 
+D1C1 C3 1000  
+D1C3 C1 1000
+D1C3 C3 1000
+D2C1 C1 1000
+D2C1 C2 1000
+D2C1 C3 1000
+D2C2 C1 1000
+D2C2 C2 1000
+D2C2 C3 1000
+D2C3 C1 1000
+D2C3 C2 1000
+D2C3 C3 1000
+D3C1 C1 1000
+D3C1 C2 1000
+D3C2 C1 1000
+D3C2 C2 1000
+D4C2 C2 1000
+D4C2 C3 1000
+D4C3 C2 1000
+D4C3 C3 1000;
+
+

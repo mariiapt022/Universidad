@@ -1,0 +1,11 @@
+reset;
+model P5R1.mod;
+option solver cplex;
+solve;
+expand;
+printf "Solución óptima: ";
+printf "y1= %f, y2=%f, z1=%f\n",y1,y2,z1;
+display x11,x12,x13,x14;
+display x21,x22,x23,x24;
+printf "Valor objetivo óptimo: ";
+display z;

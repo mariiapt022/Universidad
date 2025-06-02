@@ -1,0 +1,14 @@
+reset;  
+model ej3_8.mod;  
+data ej3_8.dat;  
+option solver cplex;  
+expand; 
+solve;  
+display x;  
+display z;  
+for {i in 1..n} { 
+printf " solucion   %3d",  i; 
+printf ": %3d", x[i]; 
+printf "\n"; 
+} 
+printf "numero de variables %d\n",n;

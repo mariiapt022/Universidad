@@ -1,0 +1,10 @@
+reset;
+model flujo.mod;
+data flujoGrafo.dat;
+option solver cplex;
+option cplex_options 'sensitivity';
+solve;
+printf "El número óptimo de alumnos asignados de acuerdo a su preferencia es %d\n", -Total_Cost;
+display x;
+printf "\n  Análisis post-óptimo en recursos\n";
+display FlowEqui.dual;

@@ -1,0 +1,20 @@
+reset;
+model pesos.mod;
+option solver CPLEX;
+solve;
+printf "\n";
+printf "Son necesarias %d pesas\n", objetivo;
+for{i in N}
+	if (x[i]>0) then
+		printf "%d pesa de %d kilos\n",x[i],i;
+for{j in N}
+	{   
+		printf "El peso %d kilos se consigue usando\n", j;
+		for{i in N}
+			if (y[i,j]<=-1) then
+	    		printf "%d pesa de %d kilos en el mismo plato que el objeto\n", -y[i,j], i;
+
+	    for{i in N}
+			if (y[i,j]>=1) then
+	    		printf "%d pesa de %d kilos en el plato contrario al del objeto\n", y[i,j], i;
+	}

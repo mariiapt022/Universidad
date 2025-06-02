@@ -1,0 +1,6 @@
+reset;
+model loca.mod;
+data loca.dat;
+option solver gurobi;
+solve;
+display x,y;

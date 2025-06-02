@@ -1,0 +1,11 @@
+reset;
+model miP1R2.mod;
+#data miP1R2.dat;
+option solver gurobi;
+solve;
+
+#display x;
+for{i in 1..n}
+	{  printf{j in 1..n} "%3d", sum{k in N} k * x[i,j,k];
+   		printf "\n";
+	}

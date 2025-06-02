@@ -1,0 +1,75 @@
+PROBLEMA 5: LENGUAJE LEXCHANGE
+
+-- A. Sintáctico --
+programa: esquema_fuente datos_fuente esquema_destino restricciones EOF;
+esquema_fuente: ESQUEMA_FUENTE (IDENT PA instrucciones PC)+
+datos_fuente: DATOS_FUENTE (IDENT PA atributos PC)+
+esquema_destino: ESQUEMA_DESTINO (IDENT PA instrucciones PC)+
+restricciones: RESTRICCIONES variables ((IDENT PA instrucciones PC) IMPLICA (IDENT PA instrucciones PC))+
+variables: VAR instrucciones PyC
+atributos: IDENT (COMA atributos)?    			|| atributos: atributo COMA atributos
+	 | NUM (COMA atributos)?     			||          | atributo
+instrucciones: IDENT COMA instrucciones     		|| atributo: IDENT | NUM
+             | IDENT
+
+
+-- A. Léxico --
+IDENT: ([a..z]|[A..Z])+
+ESQUEMA_FUENTE: "ESQUEMA FUENTE"
+DATOS_FUENTE: "DATOS FUENTE"
+ESQUEMA_DESTINO: "ESQUEMA DESTINO"
+RESTRICCIONES: "RESTRICCIONES"
+IMPLICA: "implica"
+VAR: "VAR"
+COMA: ","
+PA: "("
+PC: ")"
+PyC: ";"
+
+
+-- A. Semántico --
+D1: Crear almacén para almacenar cada IDENT del lexema ESQUEMA_FUENTE, así como el número de atributos que tenga. [estudiante:3]
+D2: Para cada línea de esquema_fuente, añadimos los valores al almacén. (línea -> (IDENT PA instrucciones PC))
+D3: Una vez contenga el almacén todos los valores del esquema_fuente, comprobamos que para cada línea de datos_fuente, se cumple que IDENT se encuentre en el almacén, 
+y que el número de parámetros asociados a dicho IDENT también se corresponda al valor del almacén. En caso de no cumplirse alguna de estas restricciones, imprimir aviso de ERROR.
+
+-- Gramática atribuida --
+almacén(global)
+programa: 
+          {D1. Instanciamos el almacén donde vamos a guardar el IDENT de cada línea en ESQUEMA_FUENTE, y su nº de parámetros}      
+          esquema_fuente datos_fuente esquema_destino restricciones EOF;
+
+esquema_fuente: ESQUEMA_FUENTE (IDENT PA 
+                                {D2. Crear contador de instrucciones con valor cero}
+                                contador_incrementado=instrucciones[contador] PC)+ 
+          {D2. Para cada línea en ESQUEMA_FUENTE, añadimos al almacén los valores anteriormente nombrados en D1, 
+          de la forma -> [estudiante:3]
+                         [empleado:3]
+
+datos_fuente: DATOS_FUENTE (IDENT PA contador_incrementado=atributos[contador] PC)+ 
+					{D2. Crear contador de atributos con valor cero}
+          {D3. Comprobamos que, para cada línea de DATOS_FUENTE, IDENT esté contenido en el almacén, y en caso afirmativo, corroborar que el número de parámetros(contador_incrementado) 
+          que tenga el IDENT de esa línea se corresponda al valor asociado del almacén}
+          
+          -------------------------------------
+          | estudiante: 3, empleado : 3, ...  | -----------
+          -------------------------------------           |
+                                                          | 
+          DATOS FUENTE                                    |
+          estudiante(Axel,1980,12122345) -----------------| = >  almacén.vertexSet().contains(IDENT(estudiante)) CIERTO
+                                                                 almacén.get(estudiante) == contador_incrementado CIERTO
+                                                          |
+          perro(Axel,1980,12122345) ----------------------| = >  almacén.vertexSet().contains(IDENT(perro)) ERROR
+
+          estudiante(Axel,1980,12122345,14) --------------| = >  almacén.vertexSet().contains(IDENT(estudiante)) CIERTO
+                                                          |      almacén.get(estudiante) == contador_incrementado ERROR
+					-------------------------------------------------
+          
+esquema_destino: ESQUEMA_DESTINO (IDENT PA instrucciones PC)+
+restricciones: RESTRICCIONES variables ((IDENT PA instrucciones PC) IMPLICA (IDENT PA instrucciones PC))+
+variables: VAR instrucciones PyC
+atributos[contador] dev contador_incrementado: atributo COMA atributos[contador_incrementado] {D2. Incrementar el contador por cada atributo}
+	 | atributo {D2. Incrementar en uno el contador, y devolverlo}
+atributo: IDENT | NUM
+instrucciones: IDENT COMA instrucciones     		
+             | IDENT

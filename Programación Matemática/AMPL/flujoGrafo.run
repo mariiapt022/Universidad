@@ -1,0 +1,9 @@
+reset;
+model alumnosConPref.mod;
+data alumnosConPref.dat
+option solver gurobi;
+solve;
+
+display totalAlumnosContentos;
+display numAlumnos;
+

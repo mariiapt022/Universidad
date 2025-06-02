@@ -1,0 +1,129 @@
+```
+PROBLEMA 5: LENGUAJE LEXCHANGE (Intérprete)
+
+D1. Crear almacén para almacenar datos fuente.
+
+Map<String, List<List<String>> ➜ estudiante (Axel, 1980, 12122345)
+	                          estudiante (Lorenzo, 1982, 10345321)
+	                          ...
+	                          empleado (Axel, 12122345, 616234345)
+	                          ...
+	                           │
+                         ──────────
+                        │
+                        ↓
+	--------------------------------
+	| estudiante	| [ (Axel, 1980, 12122345), (Lorenzo, 1982, 10345321), ... ]
+	--------------------------------
+	| empleado	| [ (Axel, 12122345, 616234345), ...]
+	--------------------------------
+	| ...		| ...
+
+
+D2. Por cada restricción del apartado restricciones, interpretamos las implicaciones de la siguiente manera:
+  D2.1) Declarar variables de cada restricción
+  D2.2) Asociar a cada variable su posición en los datos fuente y destino.
+  D2.3) En caso de no encontrar una variable en los datos fuente, le asociamos la posición "null"
+
+Asociaciones con respecto a sus posiciones:
+	var |	estudiante	| persona
+       ────────────────────────────────────
+	x   |	1		| 3
+	y   |	2		| 2
+	z   |   0		| 1
+	u   |   NULL***		| 0
+		*** En caso de no existir esa variable (u) en la tabla fuente, se le asocia valor NULL
+
+D3. Crear contador x[i] que se irá incrementando de uno en uno, asociado a cada variable no declarada 
+de la decisión anterior. 
+estudiante (Axel, 1980, 12122345) -> persona = [X1, Axel, 12122345, 1980]
+D4. Generar fichero de texto con transferencia de datos según las implicaciones de cada restricción. Para ello:
+  D4.1) Crear lista vacía que se corresponderá con los parámetros del esquema destino.
+                 estudiante(x,y,z) -> persona(u,z,y,z) 
+		=>  CREAR persona = [c_1, c_2, c_3, c_4] donde c_1 .. c_n = List2.empty();
+  D4.2) Asociar a la lista los valores de las variables de la decisión 2.2) según su posición.
+  En caso de encontrar "null", incrementamos el contador y lo añadimos a esa posición de a forma X[i]
+
+        estudiante(x,y,z) -> persona(u,z,y,z)
+	estudiante (Axel, 1980, 12122345)		
+			   |				persona = ["", "", "", 1980]
+	 ───────────────────							^
+	│	var |	estudiante	| persona				│
+	│      ────────────────────────────────────				│
+	 ──────────>	1		| 3 >───────────────────────────────────
+		y   |	2		| 2
+		z   |   0		| 1
+		u   |   NULO		| 0
+
+  D4.3) Imprimir en el fichero de texto la solución obtenida
+    estudiante (Axel, 1980, 12122345) -> persona = [X1, Axel, 12122345, 1980]
+
+-- Gramática atribuida --
+almacen(global)
+documento(string glogal)
+
+entrada[lista]: esquema_fuente datos_fuente esquema_destino restricciones EOF ;
+                {4.3. Generar fichero de texto con conjunto de lista obtenidas (resultado)
+                fichero[lista]
+                System.out.println(fichero)}
+esquema_fuente : ESQUEMA FUENTE (esquema)+ ;
+
+esquema: IDENT PA atributos PC ;
+atributos : IDENT COMA atributos
+          | IDENT
+          ;
+
+datos_fuente: DATOS FUENTE (tupla)+ ; {1. Crear almacén para almacenar datos fuente}
+
+esquema_destino: ESQUEMA DESTINO (esquema)+ ;
+restricciones dev lista: RESTRICCIONES (restriccion)+ ;
+
+restriccion: variables implicacion ; 
+{3. Inicializamos contador para las variable no declaradas (null) -> i[IDENT_entrada] 
+    (en IDENT_entrada es donde podemos encontrar las variables no declaradas}
+
+{4. Creamos lista vacía, asociándole los valores según las posiciones de 2.2).
+    lista=List2.empty() -> (pasamos como parámetro) lista[var,IDENT_salida] -> (para obtener) lista[X1, Axel, 12122345, 1980]}
+
+variables: VAR vars PyC ;
+
+vars: IDENT COMA vars
+    | IDENT
+    ; {2.1. Declaramos cada IDENT a utilizar en la tupla a devolver -> VAR x,y,z,u}
+
+implicacion: t1:tupla IMPLICA t2:tupla ; 
+
+tupla dev (i, lista_terminos): i=IDENT PA lista_terminos=terminos PC ; 
+
+terminos dev triplete(var,IDENT_entrada,IDENT_salida): termino COMA terminos 
+                                                     | termino
+                                                     ; 
+{2.2 Asociar a cada variable su posición en los datos fuente y destino}
+{2.3 Si una variable no está declarada en datos_fuente, valor="null"}
+
+termino: IDENT
+       | NUMERO
+       ; 
+```
+
+
+------------------------------------------------------------------------------------------------
+
+
+programa: esquema_fuente datos_fuente esquema_destino restricciones EOF;
+
+esquema_fuente: ESQUEMA_FUENTE (IDENT PA instrucciones PC)+
+
+datos_fuente: DATOS_FUENTE (IDENT PA instrucciones PC)+
+
+esquema_destino: ESQUEMA_DESTINO (IDENT PA instrucciones PC)+
+
+restricciones: RESTRICCIONES variables ((IDENT PA instrucciones PC) IMPLICA (IDENT PA instrucciones PC))+
+
+instrucciones: IDENT COMA instrucciones
+              | IDENT
+
+variables: VAR var PyC
+
+var: IDENT COMA var
+    | IDENT

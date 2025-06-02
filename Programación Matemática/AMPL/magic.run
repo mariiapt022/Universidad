@@ -1,0 +1,31 @@
+reset;
+model magic.mod;
+#data magic.dat;
+option solver gurobi;
+solve;
+
+printf "\n";
+if (redun==1) then
+	{
+	printf "Existe solución y la suma mágica es %d\n",s;
+	printf "\n";
+	for{i in 1..n}
+	{  printf{j in 1..n} "%3d", sum{k in N} p[k] * x[i,j,k];
+   		printf "\n";
+	}
+	}
+else
+	{
+	printf "No existe solución, pero repitiendo %d veces\n", redun;
+	printf "alguno de los números he conseguido: \n";
+		printf "\n";
+	for{i in 1..n}
+	{  printf{j in 1..n} "%3d", sum{k in N} p[k] * x[i,j,k];
+   		printf "\n";
+	}
+	}
+printf "\n";
+
+
+
+end;

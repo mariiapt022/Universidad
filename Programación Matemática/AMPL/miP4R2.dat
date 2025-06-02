@@ -1,0 +1,14 @@
+data;
+
+set fabricas:= F1 F2 F3;
+set local:= L1 L2 L3;
+
+param flujo: F1 F2 F3:=
+F1  .  3  1
+F2  2  .  3
+F3  3  1  .;
+
+param coste: L1 L2 L3:=
+L1  .  1  5
+L2  4  .  1
+L3  2  3  .;

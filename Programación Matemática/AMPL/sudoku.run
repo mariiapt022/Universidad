@@ -1,0 +1,12 @@
+reset;
+model sudoku.mod;
+data sudoku.dat;
+option solver gurobi;
+var y{I,I};
+solve;
+for {i in I,j in I} 
+	let y[i,j]:= value[i,j];
+for {(i,j) in cells}
+    let y[i,j]:=sum {k in I} k*x[i,j,k];
+display value;
+display y;
