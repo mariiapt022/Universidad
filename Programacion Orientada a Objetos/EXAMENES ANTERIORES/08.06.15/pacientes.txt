@@ -1,0 +1,7 @@
+Herrador,Ana:1005:100#Smith,Pedro:1010:100
+Garcia,Ana:1002:132#Lopez,Pedro:1034:132#Lopez,Nuria:1036:0
+Sanchez,Emerenciana:1010:211
+Pascual,Rita:1009:211#España,Antonio:1050:0
+Carmona,Beatriz:1015:132#Ortiz,Natalia:1060:132
+Martos,Joanna:1016:211
+Paneque,Carolina:1018:132#Molina,Juan:1100:0#Molina,Maria:1095:132
